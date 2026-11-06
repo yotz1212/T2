@@ -66,6 +66,7 @@
     </div>
     <script>
       var KEY="stallpos.v1";
+      var MENU_VER=2;
       var menu_pork = [
         { name: "排骨", price: 120, emoji: "🍲" },
         { name: "排骨+麵或泡飯(小)", price: 120, emoji: "🍲" },
@@ -113,12 +114,13 @@
       try{
         var s=JSON.parse(localStorage.getItem(KEY)||"null");
         if(s){
-          items=s.items||items;today=s.today||0;count=s.count||0;
+          today=s.today||0;count=s.count||0;
+          if(s.ver===MENU_VER) items=s.items||items; // 版本一致才沿用舊菜單
         }} catch(e){}
 
       function save(){
         try{
-          localStorage.setItem(KEY,JSON.stringify({items:items,today:today,count:count}));
+          localStorage.setItem(KEY,JSON.stringify({items:items,today:today,count:count,ver:MENU_VER}));
         } catch(e){}
       }
 
